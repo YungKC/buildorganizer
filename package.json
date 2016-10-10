@@ -1,0 +1,11 @@
+{
+  "name": "buildorganizer",
+  "version": "1.0.0",
+  "description": "build module organizer",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "",
+  "license": "ISC"
+}
