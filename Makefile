@@ -1,9 +1,13 @@
-REPORTER = spec
+REPORTER = list
+MOCHA_OPTS = --ui bdd –c
 
 test:
-	@NODE_ENV=test ./node_modules/bin/mocha test/*-test.js $(OPT) --reporter $(REPORTER)
+	clear
+	echo Starting test *********************************************************
+	./node_modules/mocha/bin/mocha \
+	--reporter $(REPORTER) \
+	$(MOCHA_OPTS) \
+	test/*.js
+	echo Ending test
 
-test-bail:
-	$(MAKE) test OPT=--bail
-
-.PHONY: test test-bail
+.PHONY: test

@@ -10,12 +10,12 @@ describe('BuildOrganizer', function () {
     })
     it('should work for simple 1 module build', function () {
      	var result = builder.build(['a:'])
-     	console.log(result)
+     	should.exist(result)
       	result.should.be.eql(['a'])
     })
     it('should work for simple 2 module build', function () {
      	var result = builder.build(['a:b','b:c'])
-     	console.log(result)
+     	should.exist(result)
       	result.should.be.eql(['c','b','a'])
     })
   })
