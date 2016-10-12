@@ -4,7 +4,7 @@ MOCHA_OPTS = --ui bdd
 test:
 	clear
 	echo Starting test *********************************************************
-	./node_modules/.bin/mocha \
+	mocha \
 	--reporter $(REPORTER) \
 	$(MOCHA_OPTS) \
 	test/*.js

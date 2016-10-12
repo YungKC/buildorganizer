@@ -8,36 +8,42 @@ describe('BuildOrganizer', function () {
     before(function () {
       builder = new BuildOrganizer()
     })
+    it('should catch bad input', function() {
+      should(function() {builder.build(['a'])}).throw()
+    })
     it('should work for simple 1 module build: [a:]', function () {
      	var result = builder.build(['a:'])
      	should.exist(result)
-      	result.should.be.eql(['a'])
+      result.should.be.eql(['a'])
     })
     it('should work for simple 2 module build: [a:b,b:c]', function () {
      	var result = builder.build(['a:b','b:c'])
      	should.exist(result)
-      	result.should.be.eql(['c','b','a'])
+      result.should.be.eql(['c','b','a'])
     })
     it('should catch circular dependencies: [a:b,b:a]', function () {
-     	var result = builder.build(['a:b','b:a'])
-     	should.not.exist(result)
+      should(function() {var result = builder.build(['a:b','b:a'])}).throw()
     })
     it('should catch multiple dependencies: [a:b,a:c]', function () {
-     	var result = builder.build(['a:b','a:c'])
-     	should.not.exist(result)
+     	should(function() {builder.build(['a:b','a:c'])}).throw()
     })
     it('should work for long module build', function () {
      	var result = builder.build(['a:b','b:c','c:d','d:e','e:f','f:g'])
-      	should.exist(result)
-      	result.should.be.eql(['g','f','e','d','c','b','a'])
+      should.exist(result)
+      result.should.be.eql(['g','f','e','d','c','b','a'])
     })
     it('should catch long module build with circular dependencies', function () {
-     	var result = builder.build(['a:b','b:c','c:d','d:e','e:f','f:b'])
-      	should.not.exist(result)
+     	should(function() {builder.build(['a:b','b:c','c:d','d:e','e:f','f:b'])}).throw()
     })
     it('should catch long module build with multiple dependencies', function () {
-     	var result = builder.build(['a:b','b:c','c:d','d:e','e:f','b:g'])
-      	should.not.exist(result)
+     	should(function() {builder.build(['a:b','b:c','c:d','d:e','e:f','b:g'])}).throw()
     })
+
+    it('should work for 2 independent module build chains', function () {
+      var result = builder.build(['a:b','b:c','d:e','e:f'])
+      should.exist(result)
+      result.should.be.eql(['c','b','a','f','e','d'])
+    })
+
   })
 })
