@@ -10,6 +10,8 @@ describe('BuildOrganizer', function () {
     })
     it('should catch bad input', function() {
       should(function() {builder.build(['a'])}).throw()
+      should(function() {builder.build([5])}).throw()
+      should(function() {builder.build(['a:b:c'])}).throw()
     })
     it('should work for simple 1 module build: [a:]', function () {
      	var result = builder.build(['a:'])
