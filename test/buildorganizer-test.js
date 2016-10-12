@@ -22,6 +22,11 @@ describe('BuildOrganizer', function () {
 		result.should.be.eql(['c','b','a','f','e','d'])
     })
 
+    it('should work for 2 independent module build chains in reverse order', function () {
+		var result = builder.build(['e: f','d: e','b: c','a: b'])
+		should.exist(result)
+		result.should.be.eql(['f','e','d','c','b','a'])
+    })
     it('should work for simple 1 module build: [a: ]', function () {
      	var result = builder.build(['a: '])
      	should.exist(result)
