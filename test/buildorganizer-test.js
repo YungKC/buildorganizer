@@ -32,6 +32,11 @@ describe('BuildOrganizer', function () {
      	should.exist(result)
 		result.should.be.eql(['b','a'])
     })
+    it('should work for redundant order: [a: b, a: b]', function () {
+     	var result = builder.build(['a: b','a: b','a: b','a: b'])
+     	should.exist(result)
+		result.should.be.eql(['b','a'])
+    })
     it('should work for input with extra spaces: [a:  b]', function () {
      	var result = builder.build(['a:  b'])
      	should.exist(result)
@@ -66,6 +71,12 @@ describe('BuildOrganizer', function () {
 		should.exist(result)
 		result.should.be.eql(['g','f','e','d','c','b','a'])
     })
+    it('should work for extremely long module build with random order', function () {
+     	var result = builder.build(['c: d','a: b','d: e','a: b','a: c','a: ','e: f','f: g','b: c','a: z','f: y','e: w', 's: t', 'm: n'])
+		should.exist(result)
+		result.should.be.eql(['g','y','f','w','e','d','c','b','z','a','t','s','n','m'])
+    })
+
     it('should catch long module build with circular dependencies', function () {
      	should(function() {builder.build(['a: b','b: c','c: d','d: e','e: f','f: b'])}).throw()
     })
